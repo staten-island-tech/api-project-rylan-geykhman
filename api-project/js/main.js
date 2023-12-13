@@ -3,24 +3,24 @@ const DOMSelectors = {
   container: document.querySelector(".container"),
 }
 
-async function getData() {
+async function getRandom() {
   let theCurrency = await fetch(
     "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
   )
-
-  let datav = await theCurrency.json();
-  const rylena = []
-  datav.forEach((something)=>rylena.push(something))
-  console.log(rylena)
-  
-  let currency = rylena.random()
+  let theData = await theCurrency.json();
+  const currencyValues = []
+  for (const currencies in theData) {
+    currencyValues.push(currencies)
+  }
+  let currency = Math.floor(Math.random() * currencyValues.length);
   let res = await fetch(
-    `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`
+    `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currencyValues[currency]}.json`
   );
   let data = await res.json();
   console.log(data);
 }
-getData();
+getRandom();
+getRandom();
 
 //Get the currency list with USD as base currency:
 //https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json
