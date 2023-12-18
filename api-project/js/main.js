@@ -22,9 +22,6 @@ async function getRandom() {
 getRandom();
 getRandom();
 
-//Get the currency list with USD as base currency:
-//https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json
-
 DOMSelectors.button.addEventListener("click", async function (event){
   event.preventDefault()
   let res = await fetch(
@@ -34,7 +31,9 @@ DOMSelectors.button.addEventListener("click", async function (event){
   console.log(data)
 })
 
-//function compare(x,y){}
+function compare(x,y){
+  if (x.getRandom() > y.getRandom()){}
+}
 //write function that converts both currencies into USD, then compares which one is worth more.
 
 //utilize function compare after someone guesses if currency x is higher or lower than currency y.
