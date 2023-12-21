@@ -19,23 +19,19 @@
       `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currencyValues[currency]}.json`
     );
     let data = await res.json();
-    theTrueArray.push(data);
-    console.log(data[`${currencyValues[currency]}`]);
-    console.log(theTrueArray)
+    theTrueArray.push(data)
     DOMSelectors.button.addEventListener("click", async function (event){
       event.preventDefault()
-      console.log('test',data)
-      compare(data,data);
+      compare(theTrueArray);
     })
-  }
+    }
+console.log(theTrueArray)
 
   getRandom()
   getRandom()
 
-
-
-  function compare(x,y){
-    if (x.usd > y.usd){
+  function compare(arr){
+    if (arr[0]>arr[1]){
       console.log("yippee!")
     } else {
       console.log("nay")
