@@ -14,27 +14,41 @@
     for (const currencies in theData) {
       currencyValues.push(currencies)
     }
-    let currency = Math.floor(Math.random() * currencyValues.length);
-    let res = await fetch(
-      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currencyValues[currency]}.json`
+    let currency1 = Math.floor(Math.random() * currencyValues.length);
+    let currency2 = Math.floor(Math.random() * currencyValues.length);
+    let res1 = await fetch(
+      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currencyValues[currency1]}.json`
     );
-    let data = await res.json();
-    theTrueArray.push(data)
+    let res2 = await fetch(
+      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currencyValues[currency2]}.json`
+    );
+    let data1 = await res1.json();
+    let data2 = await res2.json();
+    theTrueArray.push(data1);
+    theTrueArray.push(data2);
+    console.log(theTrueArray)
     DOMSelectors.button.addEventListener("click", async function (event){
       event.preventDefault()
-      compare(theTrueArray);
+      if (theTrueArray[0].currency1>theTrueArray[1].currency2){
+        console.log("yippee!")
+      } else {
+        console.log("nay")
+        console.log(theTrueArray[0],theTrueArray[1])
+        console.log(currency1)
+      }
+  
     })
     }
-console.log(theTrueArray)
 
-  getRandom()
   getRandom()
 
   function compare(arr){
-    if (arr[0]>arr[1]){
+    if (arr[0].currency1>arr[1].currency2){
       console.log("yippee!")
     } else {
       console.log("nay")
+      console.log(arr[0],arr[1])
+      console.log(currency1)
     }
   }
   //write function that converts both currencies into USD, then compares which one is worth more.
