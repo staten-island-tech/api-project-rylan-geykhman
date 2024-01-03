@@ -4,10 +4,10 @@
   }
 
   async function getRandom() {
-    let theCurrency = await fetch(
+    let theCurrencies = await fetch(
       "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
     )
-    let theData = await theCurrency.json();
+    let theData = await theCurrencies.json();
     const currencyValues = []
     for (const currencies in theData) {
       currencyValues.push(currencies)
@@ -28,21 +28,18 @@
     console.log(symbol1, symbol2);
     DOMSelectors.button.addEventListener("click", function (event){
       event.preventDefault()
-      compare(symbol1, symbol2)
+      if (data1[symbol1].usd>data2[symbol2].usd){
+        console.log([symbol1],"is greater!")
+        console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
+      } else if (data1[symbol1].usd<data2[symbol2].usd) {
+        console.log([symbol2],"is greater!")
+        console.log([symbol2],"has a value of ",data2[symbol2].usd,"in USD, while ",[symbol1],"has a value of ",data1[symbol1].usd,"in USD.");
+      }}
+    )
+  }
   
-    })
-    }
-
   getRandom()
 
-  function compare(symbol1, symbol2){
-  if (data1.symbol1>data2.symbol2){
-        console.log("yippee!")
-      } else {
-        console.log("nay")
-        console.log(data1[0].symbol1, data2[0].symbol2)
-        console.log(currency1)
-      }}
   //write function that converts both currencies into USD, then compares which one is worth more.
 
   //utilize function compare after someone guesses if currency x is higher or lower than currency y.
