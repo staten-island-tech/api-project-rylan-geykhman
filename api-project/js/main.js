@@ -1,5 +1,6 @@
   const DOMSelectors = {
-    button: document.querySelector(".button"),
+    higherButton: document.querySelector(".higherButton"),
+    lowerButton: document.querySelector(".lowerButton"),
     container: document.querySelector(".container"),
   }
 
@@ -17,25 +18,33 @@
     let symbol1 = currencyValues[currency1];
     let symbol2 = currencyValues[currency2];
     let res1 = await fetch(
-      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currencyValues[currency1]}.json`
+      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${symbol1}.json`
     );
     let res2 = await fetch(
-      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currencyValues[currency2]}.json`
+      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${symbol2}.json`
     );
     let data1 = await res1.json();
     let data2 = await res2.json();
     console.log(data1, data2);
     console.log(symbol1, symbol2);
-    DOMSelectors.button.addEventListener("click", function (event){
+    DOMSelectors.higherButton.addEventListener("click", function (event){
       event.preventDefault()
       if (data1[symbol1].usd>data2[symbol2].usd){
-        console.log([symbol1],"is greater!")
+        console.log([symbol1],"is greater! You're right!")
         console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
       } else if (data1[symbol1].usd<data2[symbol2].usd) {
-        console.log([symbol2],"is greater!")
-        console.log([symbol2],"has a value of ",data2[symbol2].usd,"in USD, while ",[symbol1],"has a value of ",data1[symbol1].usd,"in USD.");
-      }}
-    )
+        console.log([symbol1],"is lower. You're wrong...")
+        console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
+      }})
+    DOMSelectors.lowerButton.addEventListener("click", function (event){
+        event.preventDefault()
+        if (data1[symbol1].usd>data2[symbol2].usd){
+          console.log([symbol1],"is greater. You're wrong...!")
+          console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
+        } else if (data1[symbol1].usd<data2[symbol2].usd) {
+          console.log([symbol1],"is lower! You're right!")
+          console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
+        }})
   }
   
   getRandom()
