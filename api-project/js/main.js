@@ -1,11 +1,24 @@
   const DOMSelectors = {
-    higherButton: document.querySelector(".higherButton"),
-    lowerButton: document.querySelector(".lowerButton"),
-    nextButton: document.querySelector(".nextButton"),
+    higherButton: document.querySelector("#higherButton"),
+    lowerButton: document.querySelector("#lowerButton"),
+    nextButton: document.querySelector("#nextButton"),
     container: document.querySelector(".container"),
   }
 
-  let points = 0;
+  let counter = 0;
+
+  function setupnextButtonListener(){
+    DOMSelectors.nextButton.addEventListener("click", function (event){
+      event.preventDefault()
+      DOMSelectors.container.innerHTML = "";
+      DOMSelectors.container.insertAdjacentHTML(
+        "beforeend",
+        `<button id="higherButton" class="button">Higher!</button>
+        <button id="lowerButton" class="button">Lower!</button>`
+      )
+      getRandom()
+    })
+  }
 
   async function getRandom() {
     let theCurrencies = await fetch(
@@ -40,32 +53,34 @@
         DOMSelectors.container.innerHTML = "";
         DOMSelectors.container.insertAdjacentHTML(
           "beforeend",
-          `<button class="nextButton" id="button">Next!</button>`
+          `<button id="nextButton" class="button">Next!</button>`
         )
       } else if (data1[symbol1].usd<data2[symbol2].usd) {
         console.log([symbol1],"is lower. You're wrong...")
         console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
         console.log("Your score was:", counter)
-        counter -= counter
+        counter = 0
         console.log("back to ", counter);
         DOMSelectors.container.innerHTML = "";
         DOMSelectors.container.insertAdjacentHTML(
           "beforeend",
-          `<button class="nextButton" id="button">Next!</button>`
+          `<button id="nextButton" class="button">Next!</button>`
         )
-      }})
+      }
+      setupnextButtonListener()
+    })
     DOMSelectors.lowerButton.addEventListener("click", function (event){
       event.preventDefault()
       if (data1[symbol1].usd>data2[symbol2].usd){
         console.log([symbol1],"is greater. You're wrong...!")
         console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
         console.log("Your score was:", counter)
-        counter -= counter
+        counter = 0
         console.log("back to ", counter);
         DOMSelectors.container.innerHTML = "";
         DOMSelectors.container.insertAdjacentHTML(
           "beforeend",
-          `<button class="nextButton" id="button">Next!</button>`
+          `<button id="nextButton" class="button">Next!</button>`
         )
       } else if (data1[symbol1].usd<data2[symbol2].usd) {
         console.log([symbol1],"is lower! You're right!")
@@ -75,20 +90,12 @@
         DOMSelectors.container.innerHTML = "";
         DOMSelectors.container.insertAdjacentHTML(
           "beforeend",
-          `<button class="nextButton" id="button">Next!</button>`
+          `<button id="nextButton" class="button">Next!</button>`
         )
-        }})}
-      /* DOMSelectors.nextButton.addEventListener("click", function (event){
-          event.preventDefault()
-          DOMSelectors.container.innerHTML = "";
-          DOMSelectors.container.insertAdjacentHTML(
-            "beforeend",
-            `<button class="higherButton" id="button">Higher!</button>
-            <button class="lowerButton" id="button">Lower!</button>`
-          )
-          getRandom()
-      })} */
-  
+        }
+        setupnextButtonListener()
+      })}
+
   getRandom()
 
   //write function that converts both currencies into USD, then compares which one is worth more.
