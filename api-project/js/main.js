@@ -1,102 +1,97 @@
-  const DOMSelectors = {
-    higherButton: document.querySelector("#higherButton"),
-    lowerButton: document.querySelector("#lowerButton"),
-    nextButton: document.querySelector("#nextButton"),
-    container: document.querySelector(".container"),
-  }
+const DOMSelectors = {
+  nextButton: document.querySelector("#nextButton"),
+  container: document.querySelector(".container"),
+}
 
-  let counter = 0;
+let counter = 0
 
-  function setupnextButtonListener(){
-    DOMSelectors.nextButton.addEventListener("click", function (event){
-      event.preventDefault()
-      DOMSelectors.container.innerHTML = "";
-      DOMSelectors.container.insertAdjacentHTML(
-        "beforeend",
-        `<button id="higherButton" class="button">Higher!</button>
-        <button id="lowerButton" class="button">Lower!</button>`
-      )
-      getRandom()
-    })
-  }
+function hideNextButton() {
+  DOMSelectors.nextButton.style.display = "none";
+}
 
-  async function getRandom() {
-    let theCurrencies = await fetch(
-      "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
-    )
-    let theData = await theCurrencies.json();
-    const currencyValues = []
-    for (const currencies in theData) {
-      currencyValues.push(currencies)
-    }
-    let currency1 = Math.floor(Math.random() * currencyValues.length);
-    let currency2 = Math.floor(Math.random() * currencyValues.length);
-    let symbol1 = currencyValues[currency1];
-    let symbol2 = currencyValues[currency2];
-    let res1 = await fetch(
-      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${symbol1}.json`
-    );
-    let res2 = await fetch(
-      `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${symbol2}.json`
-    );
-    let data1 = await res1.json();
-    let data2 = await res2.json();
-    console.log(data1, data2);
-    console.log(symbol1, symbol2);
-    DOMSelectors.higherButton.addEventListener("click", function (event){
-      event.preventDefault()
-      if (data1[symbol1].usd>data2[symbol2].usd){
-        console.log([symbol1],"is greater! You're right!")
-        console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
-        counter += 1;
-        console.log("Your score is:", counter)
-        DOMSelectors.container.innerHTML = "";
-        DOMSelectors.container.insertAdjacentHTML(
-          "beforeend",
-          `<button id="nextButton" class="button">Next!</button>`
-        )
-      } else if (data1[symbol1].usd<data2[symbol2].usd) {
-        console.log([symbol1],"is lower. You're wrong...")
-        console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
-        console.log("Your score was:", counter)
-        counter = 0
-        console.log("back to ", counter);
-        DOMSelectors.container.innerHTML = "";
-        DOMSelectors.container.insertAdjacentHTML(
-          "beforeend",
-          `<button id="nextButton" class="button">Next!</button>`
-        )
-      }
-      setupnextButtonListener()
-    })
-    DOMSelectors.lowerButton.addEventListener("click", function (event){
-      event.preventDefault()
-      if (data1[symbol1].usd>data2[symbol2].usd){
-        console.log([symbol1],"is greater. You're wrong...!")
-        console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
-        console.log("Your score was:", counter)
-        counter = 0
-        console.log("back to ", counter);
-        DOMSelectors.container.innerHTML = "";
-        DOMSelectors.container.insertAdjacentHTML(
-          "beforeend",
-          `<button id="nextButton" class="button">Next!</button>`
-        )
-      } else if (data1[symbol1].usd<data2[symbol2].usd) {
-        console.log([symbol1],"is lower! You're right!")
-        console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
-        counter += 1;
-        console.log("Your score is:", counter)
-        DOMSelectors.container.innerHTML = "";
-        DOMSelectors.container.insertAdjacentHTML(
-          "beforeend",
-          `<button id="nextButton" class="button">Next!</button>`
-        )
-        }
-        setupnextButtonListener()
-      })}
+function displayNextButton(){
+  DOMSelectors.nextButton.style.display = "inline-block";
+}
 
+DOMSelectors.nextButton.addEventListener("click", function (event){
+  DOMSelectors.container.innerHTML = ''
+  DOMSelectors.container.insertAdjacentHTML(
+    "beforeend",
+    `<button id="higherButton" class="button">Higher!</button>
+    <button id="lowerButton" class="button">Lower!</button>`
+  )
   getRandom()
+})
+
+async function getRandom() {
+  hideNextButton()
+  const higherButton = document.querySelector("#higherButton")
+  const lowerButton = document.querySelector("#lowerButton")
+  let theCurrencies = await fetch(
+    "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
+  )
+  let theData = await theCurrencies.json();
+  const currencyValues = []
+  for (const currencies in theData) {
+    currencyValues.push(currencies)
+  }
+  let currency1 = Math.floor(Math.random() * currencyValues.length);
+  let currency2 = Math.floor(Math.random() * currencyValues.length);
+  let symbol1 = currencyValues[currency1];
+  let symbol2 = currencyValues[currency2];
+  let res1 = await fetch(
+    `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${symbol1}.json`
+  );
+  let res2 = await fetch(
+    `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${symbol2}.json`
+  );
+  let data1 = await res1.json();
+  let data2 = await res2.json();
+  console.log(data1, data2);
+  console.log(symbol1, symbol2);
+
+  higherButton.addEventListener("click", function (event){
+    console.log("You've chosen: Higher")
+    event.preventDefault()
+    if (data1[symbol1].usd>data2[symbol2].usd){
+      console.log([symbol1],"is greater! You're right!")
+      console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
+      counter += 1;
+      console.log("Your score is:", counter)
+      DOMSelectors.container.innerHTML = "";
+      displayNextButton()
+    } else if (data1[symbol1].usd<data2[symbol2].usd) {
+      console.log([symbol1],"is lower. You're wrong...")
+      console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
+      console.log("Your score was:", counter)
+      counter = 0
+      console.log("back to ", counter);
+      DOMSelectors.container.innerHTML = "";
+      displayNextButton()
+    }
+  })
+  lowerButton.addEventListener("click", function (event){
+    console.log("You've Chosen: Lower")
+    event.preventDefault()
+    if (data1[symbol1].usd>data2[symbol2].usd){
+      console.log([symbol1],"is greater. You're wrong...!")
+      console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
+      console.log("Your score was:", counter)
+      counter = 0
+      console.log("back to ", counter);
+      DOMSelectors.container.innerHTML = "";
+      displayNextButton()
+    } else if (data1[symbol1].usd<data2[symbol2].usd) {
+      console.log([symbol1],"is lower! You're right!")
+      console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
+      counter += 1;
+      console.log("Your score is:", counter)
+      DOMSelectors.container.innerHTML = "";
+      displayNextButton()
+      }
+    })}
+
+getRandom()
 
   //write function that converts both currencies into USD, then compares which one is worth more.
 
