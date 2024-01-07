@@ -1,6 +1,10 @@
 const DOMSelectors = {
   nextButton: document.querySelector("#nextButton"),
   container: document.querySelector(".container"),
+  buttons: document.querySelector(".buttons"),
+  text: document.querySelector(".text"),
+  score: document.querySelector(".score"),
+  values: document.querySelector(".values"),
 }
 
 let counter = 0
@@ -14,8 +18,11 @@ function displayNextButton(){
 }
 
 DOMSelectors.nextButton.addEventListener("click", function (event){
-  DOMSelectors.container.innerHTML = ''
-  DOMSelectors.container.insertAdjacentHTML(
+  DOMSelectors.container.innerHTML = '';
+  DOMSelectors.text.innerHTML = '';
+  DOMSelectors.score.innerHTML = '';
+  DOMSelectors.values.innerHTML = '';
+  DOMSelectors.buttons.insertAdjacentHTML(
     "beforeend",
     `<button id="higherButton" class="button">Higher!</button>
     <button id="lowerButton" class="button">Lower!</button>`
@@ -49,24 +56,57 @@ async function getRandom() {
   let data2 = await res2.json();
   console.log(data1, data2);
   console.log(symbol1, symbol2);
-
+  DOMSelectors.container.insertAdjacentHTML(
+    "beforeend",
+    `<div class="card">
+    <h2 class="card-title">${symbol1.toUpperCase()}</h2>
+    <img src="gold-coin-icon-png.png" alt="PictureOfCoin" class="card-img">
+    </div>
+    <div class="card">
+    <h2 class="card-title">${symbol2.toUpperCase()}</h2>
+    <img src="gold-coin-icon-png.png" alt="PictureOfCoin" class="card-img">
+    </div>`
+  )
+  DOMSelectors.text.insertAdjacentHTML(
+    "beforeend",
+    `<h3>Is ${symbol1.toUpperCase()} higher or lower than ${symbol2.toUpperCase()}?</h3>`
+  )
   higherButton.addEventListener("click", function (event){
     console.log("You've chosen: Higher")
     event.preventDefault()
     if (data1[symbol1].usd>data2[symbol2].usd){
-      console.log([symbol1],"is greater! You're right!")
-      console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
+      DOMSelectors.text.innerHTML = "";
+      DOMSelectors.text.insertAdjacentHTML(
+        "beforeend",
+        `<h3>"${symbol1.toUpperCase()}" is greater! You're right! </h3>`
+      )
+      DOMSelectors.values.insertAdjacentHTML(
+        "beforeend",
+        `<h3>"${symbol1.toUpperCase()}" has a value of ${data1[symbol1].usd} in USD, while "${symbol2.toUpperCase()}" has a value of ${data2[symbol2].usd} in USD.</h3>`
+      )
       counter += 1;
-      console.log("Your score is:", counter)
-      DOMSelectors.container.innerHTML = "";
+      DOMSelectors.score.insertAdjacentHTML(
+        "beforeend",
+        `<h3>Your score is: ${counter}.</h3>`
+      )
+      DOMSelectors.buttons.innerHTML = "";
       displayNextButton()
     } else if (data1[symbol1].usd<data2[symbol2].usd) {
-      console.log([symbol1],"is lower. You're wrong...")
-      console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
-      console.log("Your score was:", counter)
+      DOMSelectors.text.innerHTML = "";
+      DOMSelectors.text.insertAdjacentHTML(
+        "beforeend",
+        `<h3>"${symbol1.toUpperCase()}" is lower. You're wrong... </h3>`
+      )
+      DOMSelectors.values.insertAdjacentHTML(
+        "beforeend",
+        `<h3>"${symbol1.toUpperCase()}" has a value of ${data1[symbol1].usd} in USD, while "${symbol2.toUpperCase()}" has a value of ${data2[symbol2].usd} in USD.</h3>`
+      )
+      DOMSelectors.score.insertAdjacentHTML(
+        "beforeend",
+        `<h3>Your score was: ${counter}. Back to 0!</h3>`
+      )
       counter = 0
-      console.log("back to ", counter);
-      DOMSelectors.container.innerHTML = "";
+      DOMSelectors.buttons.innerHTML = "";
       displayNextButton()
     }
   })
@@ -74,19 +114,38 @@ async function getRandom() {
     console.log("You've Chosen: Lower")
     event.preventDefault()
     if (data1[symbol1].usd>data2[symbol2].usd){
-      console.log([symbol1],"is greater. You're wrong...!")
-      console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
-      console.log("Your score was:", counter)
+      DOMSelectors.text.innerHTML = "";
+      DOMSelectors.text.insertAdjacentHTML(
+        "beforeend",
+        `<h3>"${symbol1.toUpperCase()}" is greater. You're wrong... </h3>`
+      )
+      DOMSelectors.values.insertAdjacentHTML(
+        "beforeend",
+        `<h3>"${symbol1.toUpperCase()}" has a value of ${data1[symbol1].usd} in USD, while "${symbol2.toUpperCase()}" has a value of ${data2[symbol2].usd} in USD.</h3>`
+      )
+      DOMSelectors.score.insertAdjacentHTML(
+        "beforeend",
+        `<h3>Your score was: ${counter}. Back to 0!</h3>`
+      )
       counter = 0
-      console.log("back to ", counter);
-      DOMSelectors.container.innerHTML = "";
+      DOMSelectors.buttons.innerHTML = "";
       displayNextButton()
     } else if (data1[symbol1].usd<data2[symbol2].usd) {
-      console.log([symbol1],"is lower! You're right!")
-      console.log([symbol1],"has a value of ",data1[symbol1].usd,"in USD, while ",[symbol2],"has a value of ",data2[symbol2].usd,"in USD.");
+      DOMSelectors.text.innerHTML = "";
+      DOMSelectors.text.insertAdjacentHTML(
+        "beforeend",
+        `<h3>"${symbol1.toUpperCase()}" is lower! You're right! </h3>`
+      )
+      DOMSelectors.values.insertAdjacentHTML(
+        "beforeend",
+        `<h3>"${symbol1.toUpperCase()}" has a value of ${data1[symbol1].usd} in USD, while "${symbol2.toUpperCase()}" has a value of ${data2[symbol2].usd} in USD.</h3>`
+      )
       counter += 1;
-      console.log("Your score is:", counter)
-      DOMSelectors.container.innerHTML = "";
+      DOMSelectors.score.insertAdjacentHTML(
+        "beforeend",
+        `<h3>Your score is: ${counter}.</h3>`
+      )
+      DOMSelectors.buttons.innerHTML = "";
       displayNextButton()
       }
     })}
@@ -99,4 +158,4 @@ getRandom()
   //if person selects higher, check if x > y. if x > y, they are correct! if x < y, they are wrong
   //if person selects lower, check if x < y. if x < y, they are correct! if x > y, they are wrong
   //if person is correct, then display "Correct!", then the values of both currencies. add 1 to the counter, and give a button to go to the next one. Splice to remove the first one, and generate a new one
-  //if person is wrong, display "Womp Womp", then the values of both currencies. show score, then give a button to replay. when replaying, reset score.
+  //if person is wrong, display "Incorrect!", then the values of both currencies. show score, then give a button to replay. when replaying, reset score.

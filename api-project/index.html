@@ -5,15 +5,37 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite App</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mooli">
+  <style>
+    body {
+      font-family: "Mooli", sans-serif;
+    }
+  </style>
+  <title>Higher/Lower Game</title>
 </head>
 
 <body>
-  <div class="container">
+  <h1>Higher or Lower?</h1>
+  <div tabindex=0 class="container">
+
+  </div>
+  <div tabindex=1 class="text">
+
+  </div>
+  <div tabindex=2 class="values">
+
+  </div>
+  <div tabindex=3 class="score">
+
+  </div>
+  <div tabindex=4 class="buttons">
     <button id="higherButton" class="button">Higher!</button>
     <button id="lowerButton" class="button">Lower!</button>
   </div>
-  <button id="nextButton" class="button">Next!</button>
+  <div tabindex=5 class="NextButton">
+    <button id="nextButton" class="button">Next!</button>
+  </div>
   <script type="module" src="./js/main.js"></script>
 </body>
 
