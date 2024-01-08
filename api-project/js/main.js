@@ -54,8 +54,6 @@ async function getRandom() {
   );
   let data1 = await res1.json();
   let data2 = await res2.json();
-  console.log(data1, data2);
-  console.log(symbol1, symbol2);
   DOMSelectors.container.insertAdjacentHTML(
     "beforeend",
     `<div class="card">
