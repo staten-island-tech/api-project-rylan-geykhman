@@ -51,9 +51,26 @@ async function getRandom() {
   );
   let res2 = await fetch(
     `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${symbol2}.json`
-  );
+  ); 
   let data1 = await res1.json();
   let data2 = await res2.json();
+  try {
+    const response = await fetch(res1, res2)
+    console.log(response);
+    //if not successful, do what is in the if
+    if( response.status != 200){
+        //throw new Error shifts down to catch
+        throw new Error(response.statusText);
+    }
+    //take response from server and contain to JSON
+    const data = await response.json();
+    document.querySelector("h1").textContent = data.content;
+    document.querySelector("h2").textContent = data.author;
+} catch (error) {
+  if(data1, data2 === null){
+    document.querySelector("h1").textContent = 
+        "Uh oh, API error! Try reloading website, thank you!";
+}}
   DOMSelectors.container.insertAdjacentHTML(
     "beforeend",
     `<div class="card">
