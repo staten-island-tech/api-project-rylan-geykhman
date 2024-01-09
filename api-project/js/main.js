@@ -71,11 +71,11 @@ async function getRandom() {
     "beforeend",
     `<div class="card">
     <h2 class="card-title">${symbol1.toUpperCase()}</h2>
-    <img src="../public/gold-coin-icon-png.png" alt="PictureOfCoin" class="card-img">
+    <img src="../gold-coin.png" alt="PictureOfCoin" class="card-img">
     </div>
     <div class="card">
     <h2 class="card-title">${symbol2.toUpperCase()}</h2>
-    <img src="../public/gold-coin-icon-png.png" alt="PictureOfCoin" class="card-img">
+    <img src="../gold-coin.png" alt="PictureOfCoin" class="card-img">
     </div>`
   )
   DOMSelectors.text.insertAdjacentHTML(
