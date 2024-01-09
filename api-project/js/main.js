@@ -18,6 +18,7 @@ function displayNextButton(){
 }
 
 DOMSelectors.nextButton.addEventListener("click", function (event){
+  event.preventDefault();
   DOMSelectors.container.innerHTML = '';
   DOMSelectors.text.innerHTML = '';
   DOMSelectors.score.innerHTML = '';
@@ -52,34 +53,27 @@ async function getRandom() {
   let res2 = await fetch(
     `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${symbol2}.json`
   ); 
-  let data1 = await res1.json();
-  let data2 = await res2.json();
+  let data1, data2;
   try {
-    const response = await fetch(res1, res2)
-    console.log(response);
-    //if not successful, do what is in the if
-    if( response.status != 200){
-        //throw new Error shifts down to catch
-        throw new Error(response.statusText);
-    }
-    //take response from server and contain to JSON
-    const data = await response.json();
-    document.querySelector("h1").textContent = data.content;
-    document.querySelector("h2").textContent = data.author;
-} catch (error) {
-  if(data1, data2 === null){
+    data1 = await res1.json();
+    data2 = await res2.json();
+  } catch (error) {
+    console.error("Error with (await res1/res2.json):", error);
     document.querySelector("h1").textContent = 
-        "Uh oh, API error! Try reloading website, thank you!";
-}}
+        "Uh oh, API error! Click next to try again!";
+    DOMSelectors.buttons.innerHTML = "";
+    displayNextButton()
+    return;
+  }
   DOMSelectors.container.insertAdjacentHTML(
     "beforeend",
     `<div class="card">
     <h2 class="card-title">${symbol1.toUpperCase()}</h2>
-    <img src="gold-coin-icon-png.png" alt="PictureOfCoin" class="card-img">
+    <img src="../public/gold-coin-icon-png.png" alt="PictureOfCoin" class="card-img">
     </div>
     <div class="card">
     <h2 class="card-title">${symbol2.toUpperCase()}</h2>
-    <img src="gold-coin-icon-png.png" alt="PictureOfCoin" class="card-img">
+    <img src="../public/gold-coin-icon-png.png" alt="PictureOfCoin" class="card-img">
     </div>`
   )
   DOMSelectors.text.insertAdjacentHTML(
@@ -126,7 +120,7 @@ async function getRandom() {
     }
   })
   lowerButton.addEventListener("click", function (event){
-    console.log("You've Chosen: Lower")
+    console.log("You've chosen: Lower")
     event.preventDefault()
     if (data1[symbol1].usd>data2[symbol2].usd){
       DOMSelectors.text.innerHTML = "";
