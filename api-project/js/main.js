@@ -23,6 +23,8 @@ DOMSelectors.nextButton.addEventListener("click", function (event){
   DOMSelectors.text.innerHTML = '';
   DOMSelectors.score.innerHTML = '';
   DOMSelectors.values.innerHTML = '';
+  document.querySelector("h1").textContent = 
+        "Higher or Lower?";
   DOMSelectors.buttons.insertAdjacentHTML(
     "beforeend",
     `<button id="higherButton" class="button">Higher!</button>
@@ -69,11 +71,11 @@ async function getRandom() {
     "beforeend",
     `<div class="card">
     <h2 class="card-title">${symbol1.toUpperCase()}</h2>
-    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F019%2F006%2F896%2Foriginal%2Fgold-coin-icon-png.png&f=1&nofb=1&ipt=00517367c83b5fca2e9a89e664ce5434609db66ea5435a01932e2ad359ae6e2c&ipo=images" alt="PictureOfCoin" class="card-img">
+    <img src="../public/gold-coin-icon-png.png" alt="PictureOfCoin" class="card-img">
     </div>
     <div class="card">
     <h2 class="card-title">${symbol2.toUpperCase()}</h2>
-    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F019%2F006%2F896%2Foriginal%2Fgold-coin-icon-png.png&f=1&nofb=1&ipt=00517367c83b5fca2e9a89e664ce5434609db66ea5435a01932e2ad359ae6e2c&ipo=images" alt="PictureOfCoin" class="card-img">
+    <img src="../public/gold-coin-icon-png.png" alt="PictureOfCoin" class="card-img">
     </div>`
   )
   DOMSelectors.text.insertAdjacentHTML(
