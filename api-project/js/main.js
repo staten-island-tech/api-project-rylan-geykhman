@@ -19,7 +19,7 @@ function displayNextButton(){
 
 DOMSelectors.nextButton.addEventListener("click", function (event){
   event.preventDefault();
-  DOMSelectors.container.innerHTML = '';
+  DOMSelectors.container.innerHTML = '<h4>loading...</h4>';
   DOMSelectors.text.innerHTML = '';
   DOMSelectors.score.innerHTML = '';
   DOMSelectors.values.innerHTML = '';
@@ -63,6 +63,7 @@ async function getRandom() {
     console.error("Error with (await res1/res2.json):", error);
     document.querySelector("h1").textContent = 
         "Uh oh, API error! Click next to try again!";
+    DOMSelectors.container.innerHTML = ""
     DOMSelectors.buttons.innerHTML = "";
     displayNextButton()
     return;
@@ -75,8 +76,7 @@ async function getRandom() {
     <div class="card">
     <h2 class="card-title">${symbol2.toUpperCase()}</h2>
     <img src="../gold-coin.png" alt="PictureOfCoin" class="card-img">
-    </div>`
-  
+    </div>`;  
   DOMSelectors.text.insertAdjacentHTML(
     "beforeend",
     `<h3>Is ${symbol1.toUpperCase()} higher or lower than ${symbol2.toUpperCase()}?</h3>`
