@@ -67,8 +67,7 @@ async function getRandom() {
     displayNextButton()
     return;
   }
-  DOMSelectors.container.insertAdjacentHTML(
-    "beforeend",
+  DOMSelectors.container.innerHTML =
     `<div class="card">
     <h2 class="card-title">${symbol1.toUpperCase()}</h2>
     <img src="../gold-coin.png" alt="PictureOfCoin" class="card-img">
@@ -77,7 +76,7 @@ async function getRandom() {
     <h2 class="card-title">${symbol2.toUpperCase()}</h2>
     <img src="../gold-coin.png" alt="PictureOfCoin" class="card-img">
     </div>`
-  )
+  
   DOMSelectors.text.insertAdjacentHTML(
     "beforeend",
     `<h3>Is ${symbol1.toUpperCase()} higher or lower than ${symbol2.toUpperCase()}?</h3>`
